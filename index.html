@@ -3,7 +3,12 @@
 
   <head>
     <meta charset="utf-8">
-    <title>Hello</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    
+    <title>Vue Trivia</title>
   </head>
 
   <body>
@@ -12,13 +17,37 @@
     <h1>Hi</h1>
 =======
     
->>>>>>> 3a4de497d9dd2ed09294f00eaa0ecba7f03dc9e8
     <h2>Good morning!</h2>
-=======
-    <<<<<<< HEAD <h1>Hi</h1>
       ======= >>>>>>> 3a4de497d9dd2ed09294f00eaa0ecba7f03dc9e8
-      <h2>Good morning!</h2>
->>>>>>> dc772f0fb626d41ac27cb2fd2b1c71f75966ff21
+      <header>
+        <h1>Trivia</h1>
+      </header>
+    <main id="app">
+      <div id="players">
+        
+       </div>
+
+      <div id="game">
+        <div id="questions">
+            
+            <div id="qButtons">
+              <button id="100" :disabled="active=== true" @click="setQ">100</button>
+              <button id="300" :disabled="active=== true" @click="setQ">300</button>
+              <button id="500" :disabled="active=== true" @click="setQ">500</button>
+            </div>
+
+            <div id="qDisplay">
+              {{currentQuestion}}
+            </div>
+        </div>
+        <div id="answers">
+            <button :class="option.tag" v-for="option in currentOptions" @click="submitAnswer">
+              {{option.value}}
+            </button> 
+        </div>
+      </div>
+    </main>
+    <script type="text/javascript" src="project3.js"></script>   
   </body>
 
 </html>
