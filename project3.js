@@ -6,6 +6,7 @@ new Vue({
 	data: {
 		p1score:0,
 		p2score:0,
+		tries:1,
 		possibleScore:0,
 		toAdd:0,
 		token:'',
@@ -226,6 +227,7 @@ new Vue({
 		},
 
 		submitAnswer: function(event){
+			tries+=1;
 			let targetClass = event.currentTarget.className;
 			if (targetClass === "right") {
 				this.toAdd=this.possibleScore;
@@ -249,6 +251,13 @@ new Vue({
 	watch:{
 
 		tries: function(){
+			if(tries%2===1){
+				//player1's turn
+				//update player1 score
+			}else{
+				//player2's turn
+				//update player2 Score
+			}
 
 		}
 
