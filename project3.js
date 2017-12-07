@@ -227,15 +227,19 @@ new Vue({
 		},
 
 		submitAnswer: function(event){
-			tries+=1;
 			let targetClass = event.currentTarget.className;
 			if (targetClass === "right") {
 				this.toAdd=this.possibleScore;
+				if(this.tries%2===1){
+					this.p1score+=this.toAdd;
+				}else{
+					this.p2score+=this.toAdd;
+				}
 			}
-
 			else{
 				this.toAdd=0;
 			}
+			this.tries+=1;
 			this.active=false;
 			this.possibleScore=0;
 			this.currentQuestion = null ;
@@ -251,7 +255,7 @@ new Vue({
 	watch:{
 
 		tries: function(){
-			if(tries%2===1){
+			if(this.tries%2===1){
 				//player1's turn
 				//update player1 score
 			}else{
