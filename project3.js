@@ -6,8 +6,8 @@ new Vue({
 	data: {
 		p1score:0,
 		p2score:0,
-		tries:1,
-		playerTurn: "Player1's turn",
+		attempt:1,
+		playerTurn: 1,
 		possibleScore:0,
 		toAdd:0,
 		token:'',
@@ -45,7 +45,7 @@ new Vue({
 
 		getEasy: function(){
 			let _this = this;
-			$.getJSON("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&token="+this.token, function(result){
+			$.getJSON("https://opentdb.com/api.php?amount=50&category=9&difficulty=easy&type=multiple&token="+this.token, function(result){
 
 	      		for (let i = 0; i < result.results.length; i++) {
 	        		_this.easyQuestions.push(result.results[i].question);
@@ -54,17 +54,17 @@ new Vue({
 
 	        		let option1={
 								value: result.results[i].incorrect_answers[0],
-								tag: "wrong"
+								tag: "wrong1"
 							}
 
 							let option2={
 								value: result.results[i].incorrect_answers[1],
-								tag: "wrong"
+								tag: "wrong2"
 							}
 
 							let option3={
 								value: result.results[i].incorrect_answers[2],
-								tag: "wrong"
+								tag: "wrong3"
 							}
 
 	        		arr.push(option1);
@@ -88,7 +88,7 @@ new Vue({
 
 		getMedium: function(){
 			let _this = this;
-			$.getJSON("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple&token="+this.token, function(result){
+			$.getJSON("https://opentdb.com/api.php?amount=50&category=9&difficulty=medium&type=multiple&token="+this.token, function(result){
 
 	      		for (let i = 0; i < result.results.length; i++) {
 	        		_this.mediumQuestions.push(result.results[i].question);
@@ -97,17 +97,17 @@ new Vue({
 
 	        			let option1={
 							value: result.results[i].incorrect_answers[0],
-							tag: "wrong"
+							tag: "wrong1"
 						}
 
 						let option2={
 							value: result.results[i].incorrect_answers[1],
-							tag: "wrong"
+							tag: "wrong2"
 						}
 
 						let option3={
 							value: result.results[i].incorrect_answers[2],
-							tag: "wrong"
+							tag: "wrong3"
 						}
 
 	        			arr.push(option1);
@@ -131,7 +131,7 @@ new Vue({
 
 		getHard: function(){
 			let _this = this;
-			$.getJSON("https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple&token="+this.token, function(result){
+			$.getJSON("https://opentdb.com/api.php?amount=30&category=9&difficulty=hard&type=multiple&token="+this.token, function(result){
 
 	      		for (let i = 0; i < result.results.length; i++) {
 	        		_this.hardQuestions.push(result.results[i].question);
@@ -140,17 +140,17 @@ new Vue({
 
 	        			let option1={
 							value: result.results[i].incorrect_answers[0],
-							tag: "wrong"
+							tag: "wrong1"
 						}
 
 						let option2={
 							value: result.results[i].incorrect_answers[1],
-							tag: "wrong"
+							tag: "wrong2"
 						}
 
 						let option3={
 							value: result.results[i].incorrect_answers[2],
-							tag: "wrong"
+							tag: "wrong3"
 						}
 
 	        			arr.push(option1);
@@ -177,7 +177,7 @@ new Vue({
 			let targetId = event.currentTarget.id;
 
 			if (targetId === "100") {
-				if (this.eCount <9) {
+				if (this.eCount <49) {
 					this.currentQuestion = this.easyQuestions[this.eCount] ;
 					this.currentOptions = this.easyOptions[this.eCount] ;
 					this.eCount+=1;
@@ -185,14 +185,14 @@ new Vue({
 					this.currentQuestion = this.easyQuestions[this.eCount] ;
 					this.currentOptions = this.easyOptions[this.eCount] ;
 					this.eCount=0;
-					this.getEasy();
+					//this.getEasy();
 				}
 				this.active=true;
 				this.possibleScore=100;
 			}
 
 			if (targetId === "300") {
-				if (this.mCount <9) {
+				if (this.mCount <49) {
 					this.currentQuestion = this.mediumQuestions[this.mCount] ;
 					this.currentOptions = this.mediumOptions[this.mCount] ;
 					this.mCount+=1;
@@ -202,14 +202,14 @@ new Vue({
 					this.currentQuestion = this.mediumQuestions[this.mCount] ;
 					this.currentOptions = this.mediumOptions[this.mCount] ;
 					this.mCount=0;
-					this.getMedium();
+					//this.getMedium();
 				}
 				this.active=true;
 				this.possibleScore=300;
 			}
 
 			if (targetId === "500") {
-				if (this.hCount <9) {
+				if (this.hCount <29) {
 					this.currentQuestion = this.hardQuestions[this.hCount] ;
 					this.currentOptions = this.hardOptions[this.hCount] ;
 					this.hCount+=1;
@@ -219,7 +219,7 @@ new Vue({
 					this.currentQuestion = this.hardQuestions[this.hCount] ;
 					this.currentOptions = this.hardOptions[this.hCount] ;
 					this.hCount=0;
-					this.getHard();
+					//this.getHard();
 				}
 				this.active=true;
 				this.possibleScore=500;
@@ -228,24 +228,59 @@ new Vue({
 		},
 
 		submitAnswer: function(event){
-			let targetClass = event.currentTarget.className;
+			let targetClass = event.currentTarget.id;
 			if (targetClass === "right") {
 				this.toAdd=this.possibleScore;
-				if(this.tries%2===1){
+				if(this.playerTurn===1 && this.attempt === 1 || this.playerTurn===2 && this.attempt === 2 ){
 					this.p1score+=this.toAdd;
-				}else{
+					this.active=false;
+					this.possibleScore=0;
+					this.currentQuestion = null ;
+					this.currentAnswer = null ;
+					this.currentOptions = null ;
+					this.attempt = 1;
+				}
+				if (this.playerTurn===2 && this.attempt === 1 || this.playerTurn===1 && this.attempt === 2){
 					this.p2score+=this.toAdd;
+					this.active=false;
+					this.possibleScore=0;
+					this.currentQuestion = null ;
+					this.currentAnswer = null ;
+					this.currentOptions = null ;
+					this.attempt = 1;
+				}
+
+				if (this.playerTurn===1) {
+					this.playerTurn =2;
+				}
+				else{
+					this.playerTurn=1;
 				}
 			}
 			else{
-				this.toAdd=0;
+				if (this.attempt===1) {
+					this.attempt =2;
+				}
+
+				else{
+					this.attempt = 1;
+					this.active=false;
+					this.possibleScore=0;
+					this.currentQuestion = null ;
+					this.currentAnswer = null ;
+					this.currentOptions = null ;
+					if (this.playerTurn===1) {
+					this.playerTurn =2;
+					}
+					else{
+						this.playerTurn=1;
+					}
+				}
 			}
-			this.tries+=1;
-			this.active=false;
-			this.possibleScore=0;
-			this.currentQuestion = null ;
-			this.currentAnswer = null ;
-			this.currentOptions = null ;
+			this.toAdd=0;
+
+
+			
 		}
 	},
 
@@ -255,18 +290,7 @@ new Vue({
 
 	watch:{
 
-		tries: function(){
-			if(this.tries%2===1){
-				this.playerTurn="Player1's turn";
-				//player1's turn
-				//update player1 score
-			}else{
-				this.playerTurn="Player2's turn";
-				//player2's turn
-				//update player2 Score
-			}
-
-		}
+		
 
 	},
 

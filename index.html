@@ -64,10 +64,10 @@
 
           <!-- answer section -->
           <div class="row" id="answer_section">
-            <div class="col text-center border border-dark rounded m-1 p-2">
-              <span>Answer 1</span>
-            </div>
-            <div class="col text-center border border-dark rounded m-1 p-2">
+            <button class="col text-center border border-dark rounded m-1 p-2" :id="option.tag" v-for="option in currentOptions" @click="submitAnswer">
+              {{option.value}}
+            </button>
+            <!-- <div class="col text-center border border-dark rounded m-1 p-2">
               <span>Answer 2</span>
             </div>
             <div class="col text-center border border-dark rounded m-1 p-2">
@@ -75,7 +75,7 @@
             </div>
             <div class="col text-center border border-dark rounded m-1 p-2">
               <span>Answer 4</span>
-            </div>
+            </div> -->
 
           </div>
 
@@ -95,11 +95,11 @@
           <div id="qDisplay">
             {{currentQuestion}}
           </div>
-          <div id="answers">
+          <!-- <div id="answers">
             <button :class="option.tag" v-for="option in currentOptions" @click="submitAnswer">
                       {{option.value}}
                     </button>
-          </div>
+          </div> -->
 
         </div>
     </div>
