@@ -7,6 +7,7 @@ new Vue({
 		p1score:0,
 		p2score:0,
 		tries:1,
+		playerTurn: "Player1's turn",
 		possibleScore:0,
 		toAdd:0,
 		token:'',
@@ -256,9 +257,11 @@ new Vue({
 
 		tries: function(){
 			if(this.tries%2===1){
+				this.playerTurn="Player1's turn";
 				//player1's turn
 				//update player1 score
 			}else{
+				this.playerTurn="Player2's turn";
 				//player2's turn
 				//update player2 Score
 			}

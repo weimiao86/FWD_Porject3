@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/icon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
@@ -13,36 +16,101 @@
   </head>
 
   <body>
+    <div class="container pt-3">
 
-    <header>
-      <h1>Trivia</h1>
-    </header>
-    <main id="app">
-      <div id="players">
-        <p>Player 1 Score: {{p1score}}</p>
-        <p>Player 2 Score: {{p2score}}</p>
-      </div>
+      <header class="border border-warning rounded">
+        <h1 class="text-center">Trivia</h1>
+      </header>
 
-      <div id="game">
-        <div id="questions">
+      <main class="mt-2" id="app">
+        <!-- player and score section -->
+        <div class="container">
+          <div class="row border border-info  rounded" id="players">
+            <div class="col-2" id="player1_profile">
+              <img src="img/player1.gif" alt="player1" class="img-thumbnail playerProfile">
 
-          <div id="qButtons">
-            <button id="100" :disabled="active=== true" @click="setQ">100</button>
-            <button id="300" :disabled="active=== true" @click="setQ">300</button>
-            <button id="500" :disabled="active=== true" @click="setQ">500</button>
+            </div>
+            <div class="col-8 text-center pt-4" id="score_difference">
+              <div id="score_dif" class="progress" style="height:60px">
+                <div class="progress-bar bg-success" style="width:50%">
+                  {{p1score}}
+                </div>
+                <div class="progress-bar bg-danger" style="width:50%">
+                  {{p2score}}
+                </div>
+              </div>
+            </div>
+            <div class="col-2 text-right" id="player2_profile">
+              <img src="img/player2.gif" alt="player2" class="img-thumbnail playerProfile">
+            </div>
+          </div>
+        </div>
+
+
+        <!-- game section -->
+        <div id="game" class="border border-primary rounded mt-2 p-3">
+          <!-- questions section -->
+          <div class="row" id="questions">
+            <div class="col text-center border border-success rounded m-1 p-4" id="easy_question">
+              <button id="100" :disabled="active=== true" @click="setQ">100</button>
+            </div>
+            <div class="col text-center border border-warning rounded m-1 p-4" id="medium_question">
+              <button id="300" :disabled="active=== true" @click="setQ">300</button>
+            </div>
+            <div class="col text-center border border-danger rounded m-1 p-4" id="hard_question">
+              <button id="500" :disabled="active=== true" @click="setQ">500</button>
+            </div>
           </div>
 
+          <!-- answer section -->
+          <div class="row" id="answer_section">
+            <div class="col text-center border border-dark rounded m-1 p-2">
+              <span>Answer 1</span>
+            </div>
+            <div class="col text-center border border-dark rounded m-1 p-2">
+              <span>Answer 2</span>
+            </div>
+            <div class="col text-center border border-dark rounded m-1 p-2">
+              <span>Answer 3</span>
+            </div>
+            <div class="col text-center border border-dark rounded m-1 p-2">
+              <span>Answer 4</span>
+            </div>
+
+          </div>
+
+          <!--
+          <div id="questions">
+            <div id="qButtons">
+              <button id="100" :disabled="active=== true" @click="setQ">100</button>
+              <button id="300" :disabled="active=== true" @click="setQ">300</button>
+              <button id="500" :disabled="active=== true" @click="setQ">500</button>
+            </div>
+          -->
+
+          <!-- todo
+          1. display question to the area according to is score value.
+          2. display answer option inro 4 divs
+         -->
           <div id="qDisplay">
             {{currentQuestion}}
           </div>
+          <div id="answers">
+            <button :class="option.tag" v-for="option in currentOptions" @click="submitAnswer">
+                      {{option.value}}
+                    </button>
+          </div>
+
         </div>
-        <div id="answers">
-          <button :class="option.tag" v-for="option in currentOptions" @click="submitAnswer">
-              {{option.value}}
-            </button>
-        </div>
-      </div>
+    </div>
     </main>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"></script>
     <script type="text/javascript" src="project3.js"></script>
   </body>
 
