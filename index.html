@@ -25,23 +25,39 @@
       <main class="mt-2" id="app">
         <!-- player and score section -->
         <div class="container">
-          <div class="row border border-info  rounded" id="players">
-            <div class="col-2" id="player1_profile">
-              <img src="img/player1.gif" alt="player1" class="img-thumbnail playerProfile">
+          <div class="row border border-info  rounded pt-3 pb-3" id="players">
 
+            <!-- player1 -->
+            <div class="col-2" id="player1_profile">
+              <img src="img/tom.jpg" alt="player1" class="img-thumbnail playerProfile">
             </div>
-            <div class="col-8 text-center pt-4" id="score_difference">
-              <div id="score_dif" class="progress" style="height:60px">
-                <div class="progress-bar bg-success" style="width:50%">
-                  {{p1score}}
+
+            <!-- score difference bar -->
+            <div class="col-8 text-center " id="score_difference">
+              <div id="score_dif" class="progress" style="height:70px">
+                <div class="progress-bar bg-success" v-bind:style="{ width: progress +'%'}">
                 </div>
-                <div class="progress-bar bg-danger" style="width:50%">
-                  {{p2score}}
+                <div class="progress-bar bg-danger" v-bind:style="{ width:  (100-progress) +'%'}">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col p-2">
+                  <img src="img/left-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
+                    v-bind:class="{ playerActive: p1inactive }">
+                </div>
+                <div class="col p-2">
+                  <h2 class="text-center">  {{p1score}} : {{p2score}} </h2>
+                </div>
+                <div class="col p-2">
+                  <img src="img/right-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
+                    v-bind:class="{ playerActive: p2inactive }">
                 </div>
               </div>
             </div>
+
+            <!-- player2 -->
             <div class="col-2 text-right" id="player2_profile">
-              <img src="img/player2.gif" alt="player2" class="img-thumbnail playerProfile">
+              <img src="img/jerry.jpg" alt="player2" class="img-thumbnail playerProfile">
             </div>
           </div>
         </div>
@@ -64,7 +80,8 @@
 
           <!-- answer section -->
           <div class="row" id="answer_section">
-            <button class="col text-center border border-dark rounded m-1 p-2" :id="option.tag" v-for="option in currentOptions" @click="submitAnswer">
+            <button class="col text-center border border-dark rounded m-1 p-2" :id="option.tag" v-for="option in currentOptions"
+              @click="submitAnswer">
               {{option.value}}
             </button>
             <!-- <div class="col text-center border border-dark rounded m-1 p-2">
