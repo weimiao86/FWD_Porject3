@@ -27,8 +27,7 @@
 
         <div class="container " id="players">
           <div class="row " id="players">
-            <div class="col-2" id="player1_profile">
-              <img src="img/player1.gif" alt="player1" class="img-thumbnail playerProfile">
+            
 
             <!-- player1 -->
             <div class="col-2" id="player1_profile">
@@ -111,6 +110,8 @@
           <div class="row" id="answer_section">
 
             <button class="col text-center m-1 p-2 answerButton" :id="option.tag" v-for="option in currentOptions" @click="submitAnswer">
+              {{option.value}}
+            </button>
 
             <!-- <div class="col text-center border border-dark  m-1 p-2">
               <span>Answer 2</span>
