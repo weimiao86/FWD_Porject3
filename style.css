@@ -2,7 +2,6 @@
 
 
 img.playerProfile {
-<<<<<<< HEAD
   max-height: 100px;
 }
 
@@ -68,8 +67,9 @@ h1{
 }
 
 #players{
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
+
 
 /*css flip found here: https://davidwalsh.name/css-flip
 */
@@ -115,11 +115,24 @@ h1{
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
-	color: royalblue;
-	background-color: gold;
+	color: white;
+	
 	border-radius: 10px;
 	padding-top: 15px;
 	overflow: auto;
+}
+
+#easy_question>.flipper>.back{
+	background-color: #28a745;
+}
+
+#medium_question>.flipper>.back{
+	color: royalblue;
+	background-color: gold;
+}
+
+#hard_question>.flipper>.back{
+	background-color: #dc3545;
 }
 
 /*end css flip
@@ -141,4 +154,14 @@ img.playerTurnIcon {
 
 img.playerActive {
   display: none;
+}
+
+#end{
+	display: none;
+}
+
+#displayWinner{
+	font-family: 'Lobster', cursive;
+	color: royalblue;
+	font-size: 45px;
 }

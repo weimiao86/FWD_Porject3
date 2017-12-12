@@ -29,7 +29,10 @@ new Vue({
 		currentOptions:[],
 		easyOptions:[],
 		mediumOptions:[],
-		hardOptions:[]
+		hardOptions:[],
+		winner:'',
+		gameOver: false
+
 
 	},
 
@@ -38,6 +41,7 @@ new Vue({
 		this.getEasy();
 		this.getMedium();
 		this.getHard();
+		$("#myModal").modal("toggle");
 	},
 
 	methods: {
@@ -287,6 +291,7 @@ new Vue({
 			else{
 				if (this.attempt===1) {
 					this.attempt =2;
+					event.currentTarget.style.backgroundColor="#dc3545";
 					if (this.playerTurn===1) {
 					this.playerTurn =2;
 					}else{
@@ -306,6 +311,17 @@ new Vue({
 				}
 			}
 			this.toAdd=0;
+		},
+		restart: function(){
+			$('#playerArea').show(500);
+			$('#end').hide(500);
+			this.p1score=0;
+			this.p2score=0;
+			this.winner='';
+			this.attempt=1;
+			this.playerTurn=1;
+			this.p1inactive=false;
+			this.p2inactive=true;
 		}
 	},
 
@@ -322,10 +338,16 @@ new Vue({
 			if(this.p1score>this.p2score){
 				let delta1 = (this.p1score-this.p2score)/20;
 				this.progress = 50 + delta1;
+				if (this.delta1 > 50) {
+					this.delta1 = 50;
+				}
 			}
 			if(this.p1score<this.p2score){
 				let  delta2= (this.p2score-this.p1score)/20;
 				this.progress = 50-delta2;
+				if (this.delta2 > 50) {
+					this.delta2 = 50;
+				}
 			}
     },
 
@@ -333,14 +355,21 @@ new Vue({
 			this.win=Math.abs(this.p1score-this.p2score);
 			if(this.p1score===this.p2score){
 				this.progress=50;
+
 			}
 			if(this.p1score>this.p2score){
 				let delta1 = (this.p1score-this.p2score)/20;
 				this.progress = 50 + delta1;
+				if (this.delta1> 50) {
+					this.delta1 = 50;
+				}
 			}
 			if(this.p1score<this.p2score){
 				let  delta2= (this.p2score-this.p1score)/20;
 				this.progress = 50-delta2;
+				if (this.delta2 > 50) {
+					this.delta2 = 50;
+				}
 			}
 		},
 
@@ -359,7 +388,16 @@ new Vue({
 
 		win: function(){
 			if(this.win>=1000){
-				alert("Game Over!");
+				// alert("Game Over!");
+				$('#playerArea').hide(500);
+				$('#end').show(500);
+				this.gameOver=true;
+				if (this.p1score>this.p2score) {
+					this.winner="Tom"
+				}
+				else{
+					this.winner="Jerry"
+				}
 			}
 		}
 

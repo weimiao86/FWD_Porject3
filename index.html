@@ -25,42 +25,53 @@
       <main class="mt-2" id="app" >
         <!-- player and score section -->
 
-        <div class="container " id="players">
-          <div class="row " id="players">
+        <div class="container" >
+          <div class="p-3" id="players">
             
+            <div class="row" id="playerArea">
+              <!-- player1 -->
+              <div class="col-2" id="player1_profile">
+                <img src="img/tom.jpg" alt="player1" class="img-thumbnail playerProfile">
+              </div>
 
-            <!-- player1 -->
-            <div class="col-2" id="player1_profile">
-              <img src="img/tom.jpg" alt="player1" class="img-thumbnail playerProfile">
-            </div>
-
-            <!-- score difference bar -->
-            <div class="col-8 text-center " id="score_difference">
-              <div id="score_dif" class="progress" style="height:70px">
-                <div class="progress-bar bg-success" v-bind:style="{ width: progress +'%'}">
+              <!-- score difference bar -->
+              <div class="col-8 text-center " id="score_difference" >
+                <div id="score_dif" class="progress" style="height:70px">
+                  <div class="progress-bar bg-success" v-bind:style="{ width: progress +'%'}">
+                  </div>
+                  <div class="progress-bar bg-danger" v-bind:style="{ width:  (100-progress) +'%'}">
+                  </div>
                 </div>
-                <div class="progress-bar bg-danger" v-bind:style="{ width:  (100-progress) +'%'}">
+                <div class="row">
+                  <div class="col p-2">
+                    <img src="img/left-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
+                      v-bind:class="{ playerActive: p1inactive }">
+                  </div>
+                  <div class="col p-2">
+                    <h2 class="text-center">  {{p1score}} : {{p2score}} </h2>
+                  </div>
+                  <div class="col p-2">
+                    <img src="img/right-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
+                      v-bind:class="{ playerActive: p2inactive }">
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col p-2">
-                  <img src="img/left-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
-                    v-bind:class="{ playerActive: p1inactive }">
-                </div>
-                <div class="col p-2">
-                  <h2 class="text-center">  {{p1score}} : {{p2score}} </h2>
-                </div>
-                <div class="col p-2">
-                  <img src="img/right-arrow.gif" alt="turn" id="player1_turn" class="img-fluid rounded-circle playerTurnIcon"
-                    v-bind:class="{ playerActive: p2inactive }">
-                </div>
+
+              <!-- player2 -->
+              <div class="col-2 text-right" id="player2_profile">
+                <img src="img/jerry.jpg" alt="player2" class="img-thumbnail playerProfile">
               </div>
             </div>
 
-            <!-- player2 -->
-            <div class="col-2 text-right" id="player2_profile">
-              <img src="img/jerry.jpg" alt="player2" class="img-thumbnail playerProfile">
-            </div>
+            
+          
+          <div class="text-center p-5" id="end">
+            <h2 class="text-center" id="displayWinner">{{winner}} wins!</h2>
+            
+            <button class="btn btn-primary mt-2" id="playAgain" @click="restart">
+              Play Again
+            </button>
+          </div>
           </div>
         </div>
 
@@ -74,7 +85,7 @@
                 <div class="front">
                   <button id="easy" class="questionButton " :disabled="active=== true" @click="setQ">100</button>
                 </div>
-                <div class="back">
+                <div class="back p-3">
                   {{currentQuestion}}
                 </div>
               </div>
@@ -85,7 +96,7 @@
                 <div class="front">
                   <button id="medium" class="questionButton " :disabled="active=== true" @click="setQ">300</button>
                 </div>
-                <div class="back">
+                <div class="back p-3">
                   {{currentQuestion}}
                 </div>
 
@@ -97,7 +108,7 @@
                 <div class="front">
                   <button id="hard" class="questionButton " :disabled="active=== true" @click="setQ">500</button>
                 </div>
-                <div class="back">
+                <div class="back p-3">
                   {{currentQuestion}}
                 </div>
               </div>
@@ -149,8 +160,35 @@
 
         </div>
     </div>
+
+
     </main>
+
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Welcome to Vue Trivia!</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+              <p>1. This is a two player game where the winner is determined by difference in score. The first player to get 1000 points ahead of the other wins. <br><br>2. Each player will take turns chosing questions. However, if a player gets a question wrong their oponent gets a chance to answer. <br><br>3. There are three levels of difficulty in the questions, where harder questions are worth more points.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
